@@ -128,4 +128,4 @@ Temporary Items
 .nyc_output
 package-lock.json
 .vscode
-firebase.env
+.env
