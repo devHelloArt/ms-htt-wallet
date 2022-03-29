@@ -1,0 +1,260 @@
+openapi: 3.0.0
+info:
+  title: SRT Private Client Microservice API
+  description: |
+    API Spec for SRT Private client service 
+  version: 1.0.1
+servers:
+  - url: http://api.example.com/v1
+    description: Production Server
+paths:
+  /user:
+    get:
+      summary: Get User infomation
+      description: |
+        For show client information on web app
+
+        Example request:
+        ```
+          GET http://api.example.com/v1/user?user_id=12412412
+        ```
+      parameters:
+        - name: user_id
+          in: query
+          required: true
+          description: Flight Number.
+          schema:
+            type : number
+          example: 12312312
+
+      responses:
+        '200':    # success response
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    balance:
+                      type: number
+                      example: 10000
+
+                example:
+                  balance: 10000
+
+  /wallet/register:
+    get:
+      summary: register SRT client
+      description: |
+        Register SRT Client - Private sale
+        Example request:
+        ```
+          GET http://api.example.com/v1/wallet/register?name="홍길동"&phone_number="01012341234"&email="foo@foo.com"
+        ```
+      parameters:
+        - name: name
+          in: query
+          required: true
+          description: client name
+          schema:
+            type : string
+          example: "홍길동"
+        - name: phone_number
+          in: query
+          required: true
+          description: client phone number
+          schema:
+            type : string
+          example: "01012341234"
+        - name: email
+          in: query
+          required: true
+          description: client name
+          schema:
+            type : string
+          example: "홍길동"
+
+      responses:
+        '200':    # success response
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+
+  /wallet/deligate:
+    get:
+      summary: Approve deligate coin transfer
+      description: |
+        Transmits authority to replace coin transfer.       
+        Example request:
+        ```
+          GET http://api.example.com/v1/wallet/deligate?wallet_address="0x2394adfaf2"
+        ```
+      parameters:
+        - name: wallet_address
+          in: query
+          required: true
+          description: wallet_address
+          schema:
+            type : string
+          example: "0x2394adfaf2"
+
+      responses:
+        '200':    # success response
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+
+  /admin/getclientall:
+    get:
+      summary: A method for administrators to get the entire list of members.
+      description: |
+        Transmits authority to replace coin transfer.       
+        Example request:
+        ```
+          GET http://api.example.com/v1//admin/getclientall
+        ```
+      responses:
+        '200':    # success response
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  wallet:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        user:
+                          type: object
+                          properties:
+                            user_id:
+                              type: number
+                              example: 23
+                            name:
+                              type: string
+                              example: "홍길동"
+                            phone_number:
+                              type: string
+                              example: "01012341234"
+                            email:
+                              type: string
+                              example: "foo@foo.com"
+                            resistryDate:
+                              type: string
+                              example : 2022-01-22T13:20
+                            wallet_address:
+                              type: string
+                              example: "0x2394adfaf2"
+                            pk:
+                              type: string
+                              example: "0x2394adfaf2"
+                            balance:
+                              type: number
+                              example: 10000
+
+  /admin/lock:
+    get:
+      summary: A method for administrators to lock wallet of member.
+      description: |
+        Lock member wallet
+        Example request:
+        ```
+          GET http://api.example.com/v1/admin/lock?wallet_address="0x2394adfaf2"
+        ```
+      parameters:
+        - name: wallet_address
+          in: query
+          required: true
+          description: wallet_address
+          schema:
+            type : string
+          example: "0x2394adfaf2"
+
+      responses:
+        '200':    # success response
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+  /admin/unlock:
+    get:
+      summary: A method for administrators to unlock wallet of member.
+      description: |
+        Unlock member wallet
+        Example request:
+        ```
+          GET http://api.example.com/v1/admin/unlock?wallet_address="0x2394adfaf2"
+        ```
+      parameters:
+        - name: wallet_address
+          in: query
+          required: true
+          description: wallet_address
+          schema:
+            type : string
+          example: "0x2394adfaf2"
+
+      responses:
+        '200':    # success response
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+
+  /admin/withdrawal_rate_adjustment:
+    get:
+      summary: change withdrawal_rate_adjustment
+      description: |
+        change withdrawal_rate_adjustment
+        Example request:
+        ```
+          GET http://api.example.com/v1/admin/withdrawal_rate_adjustment?wallet_address="0x2394adfaf2&rate=50"
+        ```
+      parameters:
+        - name: wallet_address
+          in: query
+          required: true
+          description: wallet_address
+          schema:
+            type : string
+          example: "0x2394adfaf2"
+        - name: rate
+          in: query
+          required: true
+          description: withdrawal rate
+          schema:
+            type : number
+          example: 50
+
+      responses:
+        '200':    # success response
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
