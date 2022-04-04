@@ -19,7 +19,6 @@ services:
       - 38124:5502
       - 48124:5702
     env_file:
-      - ./firebase.env
       - ./database.env
     links:
       - ms-htt-wallet-db
